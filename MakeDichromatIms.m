@@ -25,39 +25,18 @@ rgb = (im/255).^2.2;
 rgb1_p = 0.992052*rgb + 0.00397;
 rgb1_d = 0.957237*rgb + 0.0213814;
 
-% Transform the RGB representation to an LMS representation using matrix M
+% Perform dichromatic transforms by:
+% 1. Transforming the RGB representation to an LMS representation using M
+% 2. Reducing the colour domain to the dichromat domain using P and D
+% 3. Transforming back to RGB space using M:s inverse
 for i = 1:im_size(1)
     for j = 1:im_size(2)
         rgbp = rgb1_p(i,j,:);
         rgbd = rgb1_d(i,j,:);
         rgbp = rgbp(:);
         rgbd = rgbd(:);
-        LMSp(i,j,:) = M*rgbp;
-        LMSd(i,j,:) = M*rgbd;
-    end
-end
-
-% Reduce the colour domain to the dichromat domain using matrices P and D
-for i = 1:im_size(1)
-    for j = 1:im_size(2)
-        lmsp = LMSp(i,j,:);
-        lmsd = LMSd(i,j,:);
-        lmsp = lmsp(:);
-        lmsd = lmsd(:);
-        LMSp(i,j,:) = P*lmsp;
-        LMSd(i,j,:) = D*lmsd;
-    end
-end
-
-% Transform back to RGB space
-for i = 1:im_size(1)
-    for j = 1:im_size(2)
-        lmsp = LMSp(i,j,:);
-        lmsd = LMSd(i,j,:);
-        lmsp = lmsp(:);
-        lmsd = lmsd(:);
-        RGBp(i,j,:) = inv(M)*lmsp;
-        RGBd(i,j,:) = inv(M)*lmsd;
+        RGBp(i,j,:) = inv(M)*P*M*rgbp;
+        RGBd(i,j,:) = inv(M)*D*M*rgbd;
     end
 end
 
