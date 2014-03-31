@@ -44,6 +44,4 @@ end
 pim = 255*RGBp.^(1.0/2.2);
 dim = 255*RGBd.^(1.0/2.2);
 
-montage({im/255, pim/255, dim/255}, 'Size', [1, 3]);
-
 end
