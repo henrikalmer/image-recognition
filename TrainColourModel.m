@@ -1,4 +1,4 @@
-function [mu, Sigma] = TrainColourModel(DirName, n, m)
+function [mu, Sigma] = TrainColourModel(DirName, n, p, m)
 %TRAINCOLOURMODEL Returns mean vector and covariance matrix for ims in Dir
 %   Extracts the central pixels from each image in DirName and calculates
 %   the mean vector and covariance matrix of those pixels. Choose colour
@@ -11,7 +11,7 @@ addpath(DirName);
 
 IMS = [];
 for i=1:ni
-    im = GrabCenterPixels(im_files(i).name, .2);
+    im = GrabCenterPixels(im_files(i).name, p);
     im_data = reshape(im, [size(im,1)*size(im,2), 3]);
     if strcmp(m, 'HSV')
         im_hsv = rgb2hsv(im_data);
