@@ -12,13 +12,13 @@ for i=1:ni
     % convert image to grayscale
     gim = single(rgb2gray(im));
     im_size = size(gim);
-    w = im_size(1); h = im_size(2);
     % grab center patch
     cim_size = [min(floor(p(1)*im_size(1)), im_size(1));
                 min(floor(p(2)*im_size(2)), im_size(2))].';
     delta = floor((im_size - cim_size)/2);
     cim = circshift(gim, [-delta(1) -delta(2)]);
-    cim = cim(1:cim_size(1), 1:cim_size(2), :);
+    cim = single(cim(1:cim_size(1), 1:cim_size(2), :));
+    w = cim_size(1); h = cim_size(2);
     % normalize pixel data to introduce invariance in illumination effects
     mu = mean(mean(cim));
     sigma = std(std(cim));
