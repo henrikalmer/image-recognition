@@ -1,7 +1,7 @@
 function [X, w, h] = LoadData(DirName, p)
 %LOADDATA Loads images in dir and returns their normalized pixel data
 
-selector = [DirName, '/*.jpg'];
+selector = [DirName, '/*.bmp'];
 im_files = dir(selector);
 
 X = [];
