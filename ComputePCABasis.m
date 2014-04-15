@@ -10,7 +10,6 @@ Xc = bsxfun(@minus,X,mu);
 d = size(X,1); n = size(X,2);
 if d > n
     C1 = (1/n)*Xc'*Xc;
-    size(C1)
     [v, d] = eig(C1);
     W = X * v;
 else

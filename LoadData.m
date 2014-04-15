@@ -10,14 +10,18 @@ addpath(DirName);
 for i=1:ni
     im = imread(im_files(i).name);
     % convert image to grayscale
-    gim = single(rgb2gray(im));
+    if size(im, 3) > 1
+        gim = double(rgb2gray(im));
+    else
+        gim = double(im);
+    end
     im_size = size(gim);
     % grab center patch
     cim_size = [min(floor(p(1)*im_size(1)), im_size(1));
                 min(floor(p(2)*im_size(2)), im_size(2))].';
     delta = floor((im_size - cim_size)/2);
     cim = circshift(gim, [-delta(1) -delta(2)]);
-    cim = single(cim(1:cim_size(1), 1:cim_size(2), :));
+    cim = double(cim(1:cim_size(1), 1:cim_size(2), :));
     w = cim_size(1); h = cim_size(2);
     % normalize pixel data to introduce invariance in illumination effects
     mu = mean(mean(cim));
