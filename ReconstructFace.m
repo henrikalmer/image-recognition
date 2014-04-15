@@ -1,5 +1,5 @@
 function rim = ReconstructFace(im, mu, W, w, h, N)
-%RECONSTRUCTFACE Summary of this function goes here
+%RECONSTRUCTFACE Reconstruct face im using N eigenfaces in W
 
 % convert to grayscale and cast as double precision
 if size(im, 3) > 3
